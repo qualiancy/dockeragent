@@ -1,0 +1,29 @@
+{
+    "name": "dockeragent"
+  , "version": "0.0.0"
+  , "description": "Node.js adapter for Docker services."
+  , "author": "Jake Luer <jake@qualiancy.com> (http://qualiancy.com)
+
+
+"
+  , "license": "MIT"
+  , "keywords": [
+    ]
+  , "repository": {
+        "type": "git"
+      , "url": "git@github.com:qualiancy/dockeragent.git"
+    }
+  , "engines": {
+      "node": "*"
+    }
+  , "main": "./index"
+  , "scripts": {
+      "test": "mocha"
+    }
+  , "dependencies": {
+    }
+  , "devDependencies": {
+        "chai": "*"
+      , "mocha": "*"
+    }
+}
