@@ -16,20 +16,25 @@ global.chai.use(require('chai-spies'));
  * Import project
  */
 
-global.docker = require('../..');
+global.dockeragent = require('../..');
 
 /*!
  * Helper to load internals for cov unit tests
  */
 
 function req (name) {
-  return process.env.docker_COV
-    ? require('../../lib-cov/docker/' + name)
-    : require('../../lib/docker/' + name);
+  return process.env.dockeragent_COV
+    ? require('../../lib-cov/dockeragent/' + name)
+    : require('../../lib/dockeragent/' + name);
 }
 
 /*!
  * Load unexposed modules for unit tests
  */
 
-global.__docker = {};
+global.__dockeragent = {
+    remote: {
+        Container: req('remote/container')
+      , Image: req('remote/image')
+    }
+};
