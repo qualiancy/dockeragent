@@ -21,6 +21,7 @@
         "facet": "0.4.x"
       , "sherlock": "*"
       , "superagent": "0.15.x"
+      , "tea-merge": "0.1.x"
     }
   , "devDependencies": {
         "chai": "*"
