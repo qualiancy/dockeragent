@@ -1,3 +1,3 @@
 module.exports = process.env.docker_COV
-  ? require('./lib-cov/docker')
-  : require('./lib/docker');
+  ? require('./lib-cov/dockeragent')
+  : require('./lib/dockeragent');
