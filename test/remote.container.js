@@ -138,6 +138,40 @@ describe('(containers) remote', function() {
       });
     });
 
+    describe('.restart(cb)', function() {
+      it('restarts a container', function(done) {
+        var container = claim();
+        container.start(noErr(function() {
+          container.inspect(noErr(function(stats_pre) {
+            stats_pre.should.have.deep.property('State.Running', true);
+            container.restart(noErr(function() {
+              container.inspect(noErr(function(stats_post) {
+                stats_post.should.have.deep.property('State.Running', true);
+                done();
+              }));
+            }));
+          }));
+        }));
+      });
+    });
+
+    describe('.kill(cb)', function() {
+      it('kills a running container', function(done) {
+        var container = claim();
+        container.start(noErr(function() {
+          container.inspect(noErr(function(stats_pre) {
+            stats_pre.should.have.deep.property('State.Running', true);
+            container.kill(noErr(function() {
+              container.inspect(noErr(function(stats_post) {
+                stats_post.should.have.deep.property('State.Running', false);
+                done();
+              }));
+            }));
+          }));
+        }));
+      });
+    });
+
     describe('.top(cb)', function() {
       it('responds with running processes', function(done) {
         var container = claim();
