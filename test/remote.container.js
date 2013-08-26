@@ -172,6 +172,26 @@ describe('(containers) remote', function() {
       });
     });
 
+    describe.only('.wait(cb)', function() {
+      it('waits for exit of a running container', function(done) {
+        var container = claim();
+        container.start(noErr(function() {
+          container.inspect(noErr(function(stats_pre) {
+            stats_pre.should.have.deep.property('State.Running', true);
+            container.wait(noErr(function(res) {
+              res.should.have.property('StatusCode');
+              container.inspect(noErr(function(stats_post) {
+                stats_post.should.have.deep.property('State.Running', false);
+                done();
+              }));
+            }));
+
+            container.stop();
+          }));
+        }));
+      });
+    });
+
     describe('.top(cb)', function() {
       it('responds with running processes', function(done) {
         var container = claim();
