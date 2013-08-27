@@ -245,7 +245,7 @@ describe('(containers) remote', function() {
       });
     });
 
-    describe('.attach(opts)', function () {
+    describe('.attach(opts)', function() {
       it('can stream the stdout', function(done) {
         var container = claim();
         container.start(noErr(function() {
@@ -261,6 +261,30 @@ describe('(containers) remote', function() {
           });
 
           stream.once('end', done);
+        }));
+      });
+    });
+
+    describe('.copy(opts)', function() {
+      it('can stream a file', function(done) {
+        var container = claim();
+        container.start(noErr(function() {
+          setTimeout(function() {
+            var str = '';
+            var stream = container.copy('/.dockeragent');
+
+            stream.on('readable', function() {
+              var chunk = stream.read();
+              should.exist(chunk);
+              chunk = chunk.toString();
+              str += chunk;
+            });
+
+            stream.once('end', function() {
+              str.should.contain('hello world');
+              done();
+            });
+          }, 500);
         }));
       });
     });
