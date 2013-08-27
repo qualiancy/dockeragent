@@ -210,5 +210,18 @@ describe('(containers) remote', function() {
         }));
       });
     });
+
+    describe.only('.changes(cb)', function() {
+      it('responds with container fs changes', function(done) {
+        var container = claim();
+        container.start(noErr(function() {
+          container.changes(noErr(function(res) {
+            res.should.be.an('array')
+            res.should.have.length.above(0);
+            done();
+          }));
+        }));
+      });
+    });
   });
 });
