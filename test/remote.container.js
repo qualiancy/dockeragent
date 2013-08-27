@@ -172,7 +172,7 @@ describe('(containers) remote', function() {
       });
     });
 
-    describe.only('.wait(cb)', function() {
+    describe('.wait(cb)', function() {
       it('waits for exit of a running container', function(done) {
         var container = claim();
         container.start(noErr(function() {
