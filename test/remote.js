@@ -99,6 +99,7 @@ describe('remote', function () {
           log.should.be.an('array');
           remote.images(noErr(function(images) {
             var found = false;
+            images = images || []; // cool!
 
             images.forEach(function (image) {
               if (image.Repository === IMAGE_NAME) found = true;

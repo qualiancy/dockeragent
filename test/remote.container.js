@@ -1,6 +1,6 @@
 var IMAGE_NAME = 'busybox';
 var SIMPLE_SCRIPT = [ 'date' ];
-var INFINITE_SCRIPT = [ '/bin/sh', '-c', 'while true; do echo hello universe; sleep 1; done' ]
+var INFINITE_SCRIPT = [ '/bin/sh', '-c', 'echo "hello world" > /.dockeragent; while true; do echo hello universe; sleep 1; done' ]
 
 describe('(containers) remote', function() {
   var remote = new dockeragent.Remote;
@@ -211,16 +211,37 @@ describe('(containers) remote', function() {
       });
     });
 
-    describe.only('.changes(cb)', function() {
+    describe('.changes(cb)', function() {
       it('responds with container fs changes', function(done) {
         var container = claim();
         container.start(noErr(function() {
-          container.changes(noErr(function(res) {
-            res.should.be.an('array')
-            res.should.have.length.above(0);
-            done();
-          }));
+          setTimeout(function() { // time to start
+            container.changes(noErr(function(res) {
+              should.exist(res);
+              res.should.be.an('array')
+              res.should.have.length.above(0);
+              done();
+            }));
+          }, 100);
         }));
+      });
+    });
+
+    describe('.export()', function() {
+      it('streams container contents', function(done) {
+        var container = claim();
+        var stream = container.export();
+        var len = 0;
+
+        stream.on('readable', function() {
+          var chunk = stream.read();
+          if (chunk) len += chunk.length;
+        });
+
+        stream.once('end', function() {
+          (len / 1024).should.be.above(1000);
+          done();
+        });
       });
     });
   });
