@@ -244,5 +244,25 @@ describe('(containers) remote', function() {
         });
       });
     });
+
+    describe('.attach(opts)', function () {
+      it('can stream the stdout', function(done) {
+        var container = claim();
+        container.start(noErr(function() {
+          var i = 5;
+          var stream = container.attach({ stream: true, stdout: true });
+
+          stream.on('readable', function() {
+            var chunk = stream.read();
+            should.exist(chunk);
+            chunk = chunk.toString();
+            chunk.should.equal('hello universe\n');
+            --i || stream.destroy();
+          });
+
+          stream.once('end', done);
+        }));
+      });
+    });
   });
 });
