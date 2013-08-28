@@ -91,5 +91,17 @@ describe('(image) remote', function() {
         }));
       });
     });
+
+    describe('.history(cb)', function() {
+      it('returns image history', function(done) {
+        remote
+        .image(IMAGE_NAME)
+        .history(noErr(function(history) {
+          history.should.be.an('array');
+          history.should.have.length.above(0);
+          done();
+        }));
+      });
+    });
   });
 });
