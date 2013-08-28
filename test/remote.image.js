@@ -1,9 +1,9 @@
 var IMAGE_NAME = 'busybox';
 var SIMPLE_SCRIPT = [ 'date' ];
-var INFINITE_SCRIPT = [ '/bin/sh', '-c', 'while true; do echo hello universe; sleep 1; done' ]
+var INFINITE_SCRIPT = [ '/bin/sh', '-c', 'echo "hello world" > /.dockeragent; while true; do echo hello universe; sleep 1; done' ]
 
-describe('remote', function () {
-  var remote = new dockeragent.Remote
+describe('(image) remote', function() {
+  var remote = new dockeragent.Remote;
   remote.set('host', DOCKER_HOST);
   remote.set('port', DOCKER_PORT);
 
@@ -12,26 +12,6 @@ describe('remote', function () {
       remote.pull(name, noErr(done));
     }
   }
-
-  describe('.version(cb)', function() {
-    it('requests the version object', function(done) {
-      remote.version(noErr(function(version) {
-        version.should.be.an('object');
-        version.should.have.property('Version');
-        done();
-      }));
-    });
-  });
-
-  describe('.info(cb)', function() {
-    it('requests the info object', function (done) {
-      remote.info(noErr(function(info) {
-        info.should.be.an('object');
-        info.should.include.keys('Containers', 'Images');
-        done();
-      }));
-    });
-  });
 
   describe('.pull("' + IMAGE_NAME + '")', function() {
     it('emits pull status progress', function(done) {
@@ -76,8 +56,9 @@ describe('remote', function () {
   });
 
   describe('.image("' + IMAGE_NAME + '")', function() {
+    before(addImage(IMAGE_NAME));
+
     describe('.inspect(cb)', function() {
-      before(addImage(IMAGE_NAME));
       it('requests the image details', function(done) {
         remote
         .image(IMAGE_NAME)
@@ -91,7 +72,6 @@ describe('remote', function () {
     });
 
     describe('.remove(cb)', function() {
-      before(addImage(IMAGE_NAME));
       it('removes an image', function(done) {
         remote
         .image(IMAGE_NAME)
