@@ -56,7 +56,7 @@ describe('(image) remote', function() {
   });
 
   describe('.image("' + IMAGE_NAME + '")', function() {
-    before(addImage(IMAGE_NAME));
+    beforeEach(addImage(IMAGE_NAME));
 
     describe('.inspect(cb)', function() {
       it('requests the image details', function(done) {
