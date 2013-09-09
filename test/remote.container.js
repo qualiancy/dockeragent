@@ -72,13 +72,35 @@ describe('(containers) remote', function() {
       });
     });
 
-    describe('.inspect(cb)', function() {
+    describe('.info(cb)', function() {
       it('responds with status object', function(done) {
         var container = claim();
         container.info(noErr(function(res) {
           //console.log(res);
           done();
         }));
+      });
+    });
+
+    describe('.equal(container)', function() {
+      it('returns true when ids are equal', function() {
+        var container = claim();
+        var id = container.id;
+        container.equal(id).should.be.true;
+        container.equal('break' + id).should.be.false;
+      });
+
+      it('returns true when input part of this.id', function() {
+        var container = claim();
+        var id = container.id + 'feedface';
+        container.equal(id).should.be.true;
+      });
+
+      it('returns true when this.id part of input', function() {
+        var container = claim();
+        var id = container.id + 'feedface';
+        var compare = remote.container(id);
+        compare.equal(container).should.be.true;
       });
     });
 
