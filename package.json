@@ -1,6 +1,6 @@
 {
     "name": "dockeragent"
-  , "version": "0.0.0"
+  , "version": "0.1.0"
   , "description": "Node.js adapter for Docker services."
   , "author": "Jake Luer <jake@qualiancy.com> (http://qualiancy.com)"
   , "license": "MIT"
