@@ -12,6 +12,12 @@ global.should = global.chai.should();
 global.chai.use(require('chai-spies'));
 //global.chai.use(require('chai-http'));
 
+global.chai.after = function (n, fn) {
+  return function () {
+    --n || fn.apply(null, arguments);
+  }
+};
+
 /*!
  * Import project
  */
@@ -54,4 +60,28 @@ global.noErr = function(fn) {
     if (!args.length) return fn();
     fn.apply(null, args);
   };
+};
+
+global.addImage =  function(names)  {
+  if (!Array.isArray(names)) names = [ names ];
+  return function (done) {
+    var rem = new dockeragent.Remote;
+    var next = chai.after(names.length, done);
+
+    rem.set('host', DOCKER_HOST);
+    rem.set('port', DOCKER_PORT);
+    rem.images(noErr(function (res) {
+      names.forEach(function(name) {
+        var image = res.filter(function(i) {
+          return i.Repository === name;
+        });
+
+        if (!image.length) {
+          rem.pull(name, noErr(next));
+        } else {
+          next();
+        }
+      });
+    }));
+  }
 };

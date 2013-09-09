@@ -7,12 +7,6 @@ describe('(image) remote', function() {
   remote.set('host', DOCKER_HOST);
   remote.set('port', DOCKER_PORT);
 
-  function addImage (name)  {
-    return function (done) {
-      remote.pull(name, noErr(done));
-    }
-  }
-
   describe('.pull("' + IMAGE_NAME + '")', function() {
     it('emits pull status progress', function(done) {
       var ee = remote.pull(IMAGE_NAME);

@@ -7,12 +7,6 @@ describe('(containers) remote', function() {
   remote.set('host', DOCKER_HOST);
   remote.set('port', DOCKER_PORT);
 
-  function addImage (name)  {
-    return function (done) {
-      remote.pull(name, noErr(done));
-    }
-  }
-
   describe('.create(opts, cb)', function () {
     before(addImage(IMAGE_NAME));
     it('responds with an id', function (done) {
