@@ -1,6 +1,6 @@
 # dockeragent
 
-> Node.js adapter for [http://docker.io](Docker) services.
+> Node.js adapter for [Docker](http://docker.io) services.
 
 #### Installation
 
