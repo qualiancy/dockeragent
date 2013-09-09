@@ -12,7 +12,7 @@ describe('(hooks) remote', function() {
         }, 100);
       });
 
-      remote.addHook('system:version', hook);
+      remote.hook('system:version', hook);
 
       remote.version(function(err, res) {
         should.not.exist(err);
@@ -30,7 +30,7 @@ describe('(hooks) remote', function() {
         }, 100);
       });
 
-      remote.addHook('system:version', hook);
+      remote.hook('system:version', hook);
 
       remote.version(function(err, res) {
         should.exist(err);
@@ -42,12 +42,12 @@ describe('(hooks) remote', function() {
     });
   });
 
-  describe('.removeHook(name)', function() {
+  describe('.hook(name)', function() {
     it('removes a hook at name', function(done) {
       var hook = chai.spy('version');
 
-      remote.addHook('system:version', hook);
-      remote.removeHook('system:version');
+      remote.hook('system:version', hook);
+      remote.hook('system:version');
 
       remote.version(function(err, res) {
         hook.should.not.have.been.called();
