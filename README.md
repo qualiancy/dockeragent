@@ -1,12 +1,39 @@
 # dockeragent
 
-> Node.js adapter for Docker services.
+> Node.js adapter for [http://docker.io](Docker) services.
 
 #### Installation
 
 `dockeragent` is available on [npm](http://npmjs.org).
 
     npm install dockeragent
+
+## Getting Started
+
+#### Version Compatibility
+
+Given docker is a young project and the API is constantly changing it
+is not feasible to support multiple Remote API versions. Here are the current
+recommended versions for the last npm release (`0.1.x`).
+
+- Tested with Docker v0.6.x
+- Docker Remote API v1.4 [[docs](http://docs.docker.io/en/latest/api/docker_remote_api_v1.4/)]
+
+#### Usage Caveats
+
+DockerAgent requires the API be accessible through an http address and not
+the default config of a unix socket file. You can start the docker daemon 
+using multiple `-H` flags to allow access from both DockerAgent and
+docker's included cli tool. Alternatively, edit `/etc/init/dockerd.conf` with
+this config if docker was installed as a service.
+
+```sh
+docker -d -H 127.0.0.1:4243 -H unix://var/run/docker.sock
+```
+
+### API Usage
+
+> API Docs coming soon...
 
 #### License
 
