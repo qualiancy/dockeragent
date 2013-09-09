@@ -81,7 +81,7 @@ describe('(containers) remote', function() {
     describe('.inspect(cb)', function() {
       it('responds with status object', function(done) {
         var container = claim();
-        container.inspect(noErr(function(res) {
+        container.info(noErr(function(res) {
           //console.log(res);
           done();
         }));
@@ -109,10 +109,10 @@ describe('(containers) remote', function() {
     describe('.start(cb)', function() {
       it('starts a container', function(done) {
         var container = claim();
-        container.inspect(noErr(function(stats_pre) {
+        container.info(noErr(function(stats_pre) {
           stats_pre.should.have.deep.property('State.Running', false);
           container.start(noErr(function() {
-            container.inspect(noErr(function(stats_post) {
+            container.info(noErr(function(stats_post) {
               stats_post.should.have.deep.property('State.Running', true);
               done();
             }));
@@ -125,10 +125,10 @@ describe('(containers) remote', function() {
       it('stops a container', function(done) {
         var container = claim();
         container.start(noErr(function() {
-          container.inspect(noErr(function(stats_pre) {
+          container.info(noErr(function(stats_pre) {
             stats_pre.should.have.deep.property('State.Running', true);
             container.stop(noErr(function() {
-              container.inspect(noErr(function(stats_post) {
+              container.info(noErr(function(stats_post) {
                 stats_post.should.have.deep.property('State.Running', false);
                 done();
               }));
@@ -142,10 +142,10 @@ describe('(containers) remote', function() {
       it('restarts a container', function(done) {
         var container = claim();
         container.start(noErr(function() {
-          container.inspect(noErr(function(stats_pre) {
+          container.info(noErr(function(stats_pre) {
             stats_pre.should.have.deep.property('State.Running', true);
             container.restart(noErr(function() {
-              container.inspect(noErr(function(stats_post) {
+              container.info(noErr(function(stats_post) {
                 stats_post.should.have.deep.property('State.Running', true);
                 done();
               }));
@@ -159,10 +159,10 @@ describe('(containers) remote', function() {
       it('kills a running container', function(done) {
         var container = claim();
         container.start(noErr(function() {
-          container.inspect(noErr(function(stats_pre) {
+          container.info(noErr(function(stats_pre) {
             stats_pre.should.have.deep.property('State.Running', true);
             container.kill(noErr(function() {
-              container.inspect(noErr(function(stats_post) {
+              container.info(noErr(function(stats_post) {
                 stats_post.should.have.deep.property('State.Running', false);
                 done();
               }));
@@ -176,11 +176,11 @@ describe('(containers) remote', function() {
       it('waits for exit of a running container', function(done) {
         var container = claim();
         container.start(noErr(function() {
-          container.inspect(noErr(function(stats_pre) {
+          container.info(noErr(function(stats_pre) {
             stats_pre.should.have.deep.property('State.Running', true);
             container.wait(noErr(function(res) {
               res.should.have.property('StatusCode');
-              container.inspect(noErr(function(stats_post) {
+              container.info(noErr(function(stats_post) {
                 stats_post.should.have.deep.property('State.Running', false);
                 done();
               }));

@@ -58,11 +58,11 @@ describe('(image) remote', function() {
   describe('.image("' + IMAGE_NAME + '")', function() {
     beforeEach(addImage(IMAGE_NAME));
 
-    describe('.inspect(cb)', function() {
+    describe('.info(cb)', function() {
       it('requests the image details', function(done) {
         remote
         .image(IMAGE_NAME)
-        .inspect(noErr(function(image) {
+        .info(noErr(function(image) {
           image.should
             .be.an('object')
             .with.property('id');
