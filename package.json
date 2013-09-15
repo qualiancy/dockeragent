@@ -22,6 +22,7 @@
       , "sherlock": "*"
       , "superagent": "0.15.x"
       , "tea-merge": "0.1.x"
+      , "transmute": "0.2.x"
     }
   , "devDependencies": {
         "chai": "*"
