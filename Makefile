@@ -1,21 +1,17 @@
 TESTS = test/*.js
 REPORTER = list
 
-test:
-	@NODE_ENV=test ./node_modules/.bin/mocha \
-		--require ./test/bootstrap \
-		--reporter $(REPORTER) \
-		--timeout 500000 \
-		$(TESTS)
+all: install test
 
-test-cov: lib-cov
-	@docker_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+install: node_modules
 
-lib-cov: clean
-	@jscoverage lib lib-cov
+node_modules: package.json
+	@npm install
+	@touch $@
 
-clean:
-	@rm -rf lib-cov
-	@rm -f coverage.html
+test: test-node
+
+test-node:
+	@NODE_ENV=test ./node_modules/goodwin/bin/goodwin
 
 .PHONY: test lib-cov test-cov clean

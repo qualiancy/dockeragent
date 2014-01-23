@@ -1,32 +1,29 @@
 {
-    "name": "dockeragent"
-  , "version": "0.1.0"
-  , "description": "Node.js adapter for Docker services."
-  , "author": "Jake Luer <jake@qualiancy.com> (http://qualiancy.com)"
-  , "license": "MIT"
-  , "keywords": [
-    ]
-  , "repository": {
-        "type": "git"
-      , "url": "git@github.com:qualiancy/dockeragent.git"
-    }
-  , "engines": {
-      "node": "*"
-    }
-  , "main": "./index"
-  , "scripts": {
-      "test": "mocha"
-    }
-  , "dependencies": {
-        "facet": "0.4.x"
-      , "sherlock": "*"
-      , "superagent": "0.15.x"
-      , "tea-merge": "0.1.x"
-      , "transmute": "0.2.x"
-    }
-  , "devDependencies": {
-        "chai": "*"
-      , "chai-spies": "*"
-      , "mocha": "*"
-    }
+  "name": "dockeragent",
+  "version": "0.1.0",
+  "description": "Node.js adapter for Docker services.",
+  "author": "Jake Luer <jake@qualiancy.com> (http://qualiancy.com)",
+  "license": "MIT",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:qualiancy/dockeragent.git"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "main": "./index",
+  "scripts": {
+    "test": "make test"
+  },
+  "dependencies": {
+    "facet": "0.4.x",
+    "request": "~2.33.0",
+    "sherlock": "*",
+    "tea-merge": "0.1.x",
+    "transmute": "0.2.x"
+  },
+  "devDependencies": {
+    "goodwin": "https://github.com/logicalparadox/goodwin/tarball/master"
+  }
 }
