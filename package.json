@@ -21,7 +21,8 @@
     "request": "~2.33.0",
     "sherlock": "*",
     "tea-merge": "0.1.x",
-    "transmute": "0.2.x"
+    "transmute": "0.2.x",
+    "roundabout": "~0.1.2"
   },
   "devDependencies": {
     "goodwin": "https://github.com/logicalparadox/goodwin/tarball/master"

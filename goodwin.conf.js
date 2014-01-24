@@ -1,5 +1,6 @@
 module.exports = function(config) {
   config.set({
+    timeout: 30000,
     globals: {
       dockeragent: require('./index.js'),
       noErr: function(fn) {
