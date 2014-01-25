@@ -4,7 +4,7 @@ var INFINITE_SCRIPT = [ '/bin/sh', '-c', 'echo "hello world" > /.dockeragent; wh
 
 var Remote = dockeragent.Remote;
 
-suite('.pull()', function() {
+suite('.pullStream()', function() {
   test('returns a status stream', function(done) {
     var docker = new Remote;
 
@@ -14,13 +14,23 @@ suite('.pull()', function() {
       line.should.be.an('object');
     });
 
-    var stat = docker.pull({ fromImage: IMAGE_NAME }, noErr(function(id) {
-      id.should.be.a('string');
+    var stat = docker.pullStream({ fromImage: IMAGE_NAME });
+    stat.on('readable', spy);
+
+    stat.on('end', function() {
       spy.should.have.been.called.gt(1);
       done();
-    }));
+    });
+  });
+});
 
-    stat.on('readable', spy);
+suite('.pull()', function() {
+  test('returns pulled id', function(done) {
+    var docker = new Remote;
+    docker.pull({ fromImage: IMAGE_NAME }, noErr(function(id) {
+      id.should.be.a('string');
+      done();
+    }));
   });
 });
 
@@ -40,13 +50,10 @@ suite('Image', function() {
 
   function pull(cb) {
     var docker = new Remote;
-
-    var pull = docker.pull({ fromImage: IMAGE_NAME }, noErr(function(id) {
+    docker.pull({ fromImage: IMAGE_NAME }, noErr(function(id) {
       var img = docker.image(id);
       cb(null, img, docker);
     }));
-
-    pull.on('readable', function() { this.read(); });
   }
 
   suite('.info()', function() {
